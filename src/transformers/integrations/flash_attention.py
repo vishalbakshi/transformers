@@ -23,9 +23,6 @@ def flash_attention_forward(
 
     print("\n=== FLASH_ATTENTION_FORWARD ENTRY ===")
     print(f"kwargs received: {list(kwargs.keys())}")
-    for k in ['cu_seqlens', 'cu_seq_lens_q', 'cu_seq_lens_k']:
-        if k in kwargs:
-            print(f"  {k}: {kwargs[k]}")
             
     # This is before the transpose
     seq_len = query.shape[2]
