@@ -322,6 +322,10 @@ def _flash_attention_forward(
         deterministic (`bool`, *optional*):
             Determines if the deterministic option introduced in flash_attn>=2.4.1 is enabled.
     """
+
+    print("\n=== _FLASH_ATTENTION_FORWARD ENTRY ===")
+    print(f"kwargs received: {list(kwargs.keys())}")
+    
     if not use_top_left_mask:
         causal = is_causal
     else:
