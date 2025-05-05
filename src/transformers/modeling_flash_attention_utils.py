@@ -392,10 +392,14 @@ def _flash_attention_forward(
         batch_size = query_states.size(0)
 
         if cu_seq_lens_q is None or cu_seq_lens_k is None:
+            print(f"cu_seq_lens_q is None: {cu_seq_lens_q is None}")
+            print(f"cu_seq_lens_k is None: {cu_seq_lens_q is None}")
             query_states, key_states, value_states, indices_q, cu_seq_lens, max_seq_lens = (
                 prepare_fa2_from_position_ids(query_states, key_states, value_states, position_ids)
             )
 
+            print("\n cu_seq_lens")
+            print(cu_seq_lens)
             cu_seq_lens_q, cu_seq_lens_k = cu_seq_lens
             max_length_q, max_length_k = max_seq_lens
 
