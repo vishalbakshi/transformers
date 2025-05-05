@@ -325,6 +325,9 @@ def _flash_attention_forward(
 
     print("\n=== _FLASH_ATTENTION_FORWARD ENTRY ===")
     print(f"kwargs received: {list(kwargs.keys())}")
+
+    print("\n attention_mask")
+    print(attention_mask)
     
     if not use_top_left_mask:
         causal = is_causal
@@ -353,6 +356,7 @@ def _flash_attention_forward(
 
     # Contains at least one padding token in the sequence
     if attention_mask is not None:
+        print("attention_mask is not None")
         batch_size = query_states.shape[0]
         query_states, key_states, value_states, indices_q, cu_seq_lens, max_seq_lens = _upad_input(
             query_states, key_states, value_states, attention_mask, query_length
