@@ -328,6 +328,9 @@ def _flash_attention_forward(
 
     print("\n attention_mask")
     print(attention_mask)
+
+    print("\n position_ids")
+    print(position_ids)
     
     if not use_top_left_mask:
         causal = is_causal
@@ -385,6 +388,7 @@ def _flash_attention_forward(
     elif position_ids is not None and (
         max_length_q is not None or (query_length != 1 and not (torch.diff(position_ids, dim=-1) >= 0).all())
     ):
+        print("position_ids is not None and max_length_q check")
         batch_size = query_states.size(0)
 
         if cu_seq_lens_q is None or cu_seq_lens_k is None:
@@ -417,6 +421,9 @@ def _flash_attention_forward(
         attn_output = attn_output.view(batch_size, -1, attn_output.size(-2), attn_output.size(-1))
 
     else:
+        print("flash_attn_func is called")
+        print(f"flash_kwargs received: {list(flash_kwargs.keys())}")
+        
         attn_output = flash_attn_func(
             query_states, key_states, value_states, dropout, softmax_scale=softmax_scale, causal=causal, **flash_kwargs
         )
